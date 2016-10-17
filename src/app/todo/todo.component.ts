@@ -24,5 +24,13 @@ export class TodoComponent implements OnInit {
       this.todos = todos;
       this.activeTasks = this.todos.filter(todo => todo.isDone).length;
     });
-  } 
+  }
+
+  addTodo(){
+    this.todoService.add({ title: this.newTodo, isDone: false }).then(() => {
+      return this.getTodos();
+    }).then(() => {
+      this.newTodo = ''; // clear input form value
+    });
+  }  
 }
