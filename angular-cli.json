@@ -15,7 +15,8 @@
       "prefix": "app",
       "mobile": false,
       "styles": [
-        "styles.scss"
+        "styles.scss",
+        "../node_modules/todomvc-app-css/index.css"
       ],
       "scripts": [],
       "environments": {
