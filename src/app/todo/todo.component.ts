@@ -32,5 +32,13 @@ export class TodoComponent implements OnInit {
     }).then(() => {
       this.newTodo = ''; // clear input form value
     });
-  }  
+  }
+
+  updateTodo(todo, newValue) {
+    todo.title = newValue;
+    return this.todoService.put(todo).then(() => {
+      todo.editing = false;
+      return this.getTodos();
+    });    
+  }
 }
