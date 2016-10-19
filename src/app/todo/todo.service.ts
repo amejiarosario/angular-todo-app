@@ -49,4 +49,11 @@ export class TodoService {
       resolve(true);
     });
   }
+
+  deleteCompleted() {
+    return new Promise(resolve => {
+      todos = todos.filter(todo => !todo.isDone);
+      resolve(todos);
+    });
+  }
 }
