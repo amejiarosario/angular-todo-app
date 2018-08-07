@@ -46,6 +46,12 @@ export class TodoComponent implements OnInit {
     });
   }
 
+  clearCompleted() {
+    this.todoService.deleteCompleted().then(() => {
+      return this.getTodos();
+    });
+  }
+
   ngOnInit() {
     this.route.params.subscribe(params => {
       this.path = params['status'];
