@@ -38,13 +38,13 @@
     <!-- Remove this if you don't implement routing -->
     <ul class="filters">
       <li>
-        <a class="selected" href="#/">All</a>
+        <a [routerLink]="['/all']" [class.selected]="path === 'all'">All</a>
       </li>
       <li>
-        <a href="#/active">Active</a>
+        <a [routerLink]="['/active']" [class.selected]="path === 'active'">Active</a>
       </li>
       <li>
-        <a href="#/completed">Completed</a>
+        <a [routerLink]="['/completed']" [class.selected]="path === 'completed'">Completed</a>
       </li>
     </ul>
     <!-- Hidden if no completed items are left ↓ -->
