@@ -17,4 +17,12 @@ export class TodoService {
   get() {
     return new Promise(resolve => resolve(TODOS));
   }
+
+  add(data) {
+    return new Promise(resolve => {
+      TODOS.push(data);
+      resolve(data);
+    });
+  }
+
 }
