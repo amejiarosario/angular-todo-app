@@ -20,7 +20,7 @@ export class TodoComponent implements OnInit {
   ngOnInit() {
     this.route.params.subscribe(params => {
       this.path = params['status'];
-      this.getTodos();
+      this.getTodos(this.path);
     });
   }
 
@@ -32,8 +32,8 @@ export class TodoComponent implements OnInit {
     });
   }
 
-  getTodos(){
-    return this.todoService.get().then(todos => {
+  getTodos(query = ''){
+    return this.todoService.get(query).then(todos => {
       this.todos = todos;
       this.activeTasks = this.todos.filter(todo => todo.isDone).length;
     });

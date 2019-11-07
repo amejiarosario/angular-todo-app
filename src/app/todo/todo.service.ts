@@ -14,8 +14,19 @@ export class TodoService {
 
   constructor() { }
 
-  get() {
-    return new Promise(resolve => resolve(TODOS));
+  get(query = '') {
+    return new Promise(resolve => {
+      let data;
+
+      if (query === 'completed' || query === 'active'){
+        const isCompleted = query === 'completed';
+        data = TODOS.filter(todo => todo.isDone === isCompleted);
+      } else {
+        data = TODOS;
+      }
+
+      resolve(data);
+    });
   }
 
   add(data) {
