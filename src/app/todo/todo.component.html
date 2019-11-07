@@ -13,14 +13,20 @@
   <section class="main">
 
     <ul class="todo-list">
-      <li *ngFor="let todo of todos" [ngClass]="{completed: todo.isDone}" >
+      <li *ngFor="let todo of todos" [ngClass]="{completed: todo.isDone, editing: todo.editing}" >
         <div class="view">
           <input class="toggle" type="checkbox" [checked]="todo.isDone">
-          <label>{{todo.title}}</label>
+          <label (dblclick)="todo.editing = true">{{todo.title}}</label>
           <button class="destroy"></button>
         </div>
-        <input class="edit" value="{{todo.title}}">
+        <input class="edit"
+               #updatedTodo
+               [value]="todo.title"
+               (blur)="updateTodo(todo, updatedTodo.value)"
+               (keyup.escape)="todo.editing = false"
+               (keyup.enter)="updateTodo(todo, updatedTodo.value)">
       </li>
+
     </ul>
 
   </section>
