@@ -40,4 +40,10 @@ export class TodoComponent implements OnInit {
   ngOnInit() {
     this.getTodos();
   }
+
+  destroyTodo(todo) {
+    this.todoService.delete(todo).then(() => {
+      return this.getTodos();
+    });
+  }
 }
