@@ -1,6 +1,10 @@
 # Todos
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 8.3.17.
+This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 8.3.17 and upgraded to angular 9 using:
+
+```sh
+ng update @angular/cli @angular/core
+```
 
 If you want to learn more about Angular check out this blog post: https://adrianmejia.com/angular-2-tutorial-create-a-crud-app-with-angular-cli-and-typescript/
 
