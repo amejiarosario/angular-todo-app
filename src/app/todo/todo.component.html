@@ -15,7 +15,10 @@
     <ul class="todo-list">
       <li *ngFor="let todo of todos" [ngClass]="{completed: todo.isDone, editing: todo.editing}" >
         <div class="view">
-          <input class="toggle" type="checkbox" [checked]="todo.isDone" (click)="toggleTodo(todo)">
+          <input class="toggle"
+            type="checkbox"
+            [checked]="todo.isDone"
+            (click)="toggleTodo(todo)">
           <label (dblclick)="todo.editing = true">{{todo.title}}</label>
           <button class="destroy" (click)="destroyTodo(todo)"></button>
         </div>
