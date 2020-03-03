@@ -11,7 +11,6 @@ let TODOS = [
   providedIn: 'root'
 })
 export class TodoService {
-
   constructor() { }
 
   get(query = '') {
