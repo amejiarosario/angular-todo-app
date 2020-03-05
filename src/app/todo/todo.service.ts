@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
 
 let TODOS = [
   { title: 'Install Angular CLI', isDone: true },
@@ -14,7 +15,7 @@ export class TodoService {
   constructor() { }
 
   get(query = '') {
-    return new Promise(resolve => {
+    return new Observable(subscriber => {
       let data;
 
       if (query === 'completed' || query === 'active'){
@@ -24,43 +25,42 @@ export class TodoService {
         data = TODOS;
       }
 
-      resolve(data);
+      subscriber.next(data);
     });
   }
 
   add(data) {
-    return new Promise(resolve => {
+    return new Observable(subscriber => {
       TODOS.push(data);
-      resolve(data);
+      subscriber.next(data);
     });
   }
 
   put(changed) {
-    return new Promise(resolve => {
+    return new Observable(subscriber => {
       const index = TODOS.findIndex(todo => todo === changed);
       TODOS[index].title = changed.title;
-      resolve(changed);
+      subscriber.next(changed);
     });
   }
 
   delete(selected) {
-    return new Promise(resolve => {
+    return new Observable(subscriber => {
       const index = TODOS.findIndex(todo => todo === selected);
       TODOS.splice(index, 1);
-      resolve(true);
+      subscriber.next(true);
     });
   }
 
   deleteCompleted() {
-    return new Promise(resolve => {
+    return new Observable(subscriber => {
       TODOS = TODOS.filter(todo => !todo.isDone);
-      resolve(TODOS);
+      subscriber.next(TODOS);
     });
   }
 
   toggle(selected) {
     selected.isDone = !selected.isDone;
-    return Promise.resolve();
+    return new Observable(subscriber => subscriber.complete());
   }
-
 }

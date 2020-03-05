@@ -25,42 +25,45 @@ export class TodoComponent implements OnInit {
   }
 
   addTodo(){
-    this.todoService.add({ title: this.newTodo, isDone: false }).then(() => {
-      return this.getTodos();
-    }).then(() => {
-      this.newTodo = ''; // clear input form value
-    });
+    this.todoService
+      .add({ title: this.newTodo, isDone: false })
+      .subscribe(() => {
+        this.getTodos();
+        this.newTodo = ''; // clear input form value
+      });
   }
 
   getTodos(query = ''){
-    return this.todoService.get(query).then(todos => {
-      this.todos = todos;
-      this.activeTasks = this.todos.filter(todo => !todo.isDone).length;
-    });
+    return this.todoService
+      .get(query)
+      .subscribe(todos => {
+        this.todos = todos;
+        this.activeTasks = this.todos.filter(todo => !todo.isDone).length;
+      });
   }
 
   updateTodo(todo, newValue) {
     todo.title = newValue;
-    return this.todoService.put(todo).then(() => {
+    return this.todoService.put(todo).subscribe(() => {
       todo.editing = false;
       return this.getTodos();
     });
   }
 
   destroyTodo(todo) {
-    this.todoService.delete(todo).then(() => {
+    this.todoService.delete(todo).subscribe(() => {
       return this.getTodos();
     });
   }
 
   clearCompleted() {
-    this.todoService.deleteCompleted().then(() => {
+    this.todoService.deleteCompleted().subscribe(() => {
       return this.getTodos();
     });
   }
 
   toggleTodo(todo) {
-    this.todoService.toggle(todo).then(() => {
+    this.todoService.toggle(todo).subscribe(() => {
       return this.getTodos();
     });
   }
