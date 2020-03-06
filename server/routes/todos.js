@@ -1,9 +1,16 @@
-var express = require('express');
-var router = express.Router();
+const express = require('express');
+const router = express.Router();
+
+const todo = require('../schemas/todo');
 
 /* GET users listing. */
-router.get('/', function(req, res, next) {
-  res.json([{ title: 'setup server', isDone: false }]);
+router.get('/', async (req, res) => {
+  try {
+    const list = await todo.find();
+    res.json(list);
+  } catch (error) {
+    res.json(500, { error });
+  }
 });
 
 module.exports = router;
