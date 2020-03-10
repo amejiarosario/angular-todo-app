@@ -3,9 +3,9 @@ const mongoose = require('mongoose');
 const { Schema, model } = mongoose;
 
 const TodoSchema = new Schema({
-  name: String,
-  completed: Boolean,
-  note: String,
+  title: String,
+  isDone: Boolean,
+  notes: String,
   updated_at: { type: Date, default: Date.now },
 });
 
