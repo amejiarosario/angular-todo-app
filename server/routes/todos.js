@@ -9,7 +9,7 @@ router.get('/', async (req, res) => {
     const list = await Todo.find();
     res.json(list);
   } catch (error) {
-    res.json(500, { error });
+    res.status(500).json({ error });
   }
 });
 
@@ -19,7 +19,28 @@ router.post('/', async (req, res) => {
     const todo = await Todo.create(req.body);
     res.json(todo);
   } catch (error) {
-    res.json(500, { error });
+    res.status(500).json({ error });
+  }
+});
+
+/* PUT /api/todos */
+router.put('/:id', async (req, res) => {
+  try {
+    const options = { new: true };
+    const todo = await Todo.findByIdAndUpdate(req.params.id, req.body, options);
+    res.json(todo);
+  } catch (error) {
+    res.status(500).json({ error });
+  }
+});
+
+/* DELETE /api/todos */
+router.delete('/:id', async (req, res) => {
+  try {
+    const todo = await Todo.findByIdAndDelete(req.params.id);
+    res.json(todo);
+  } catch (error) {
+    res.status(500).json({ error });
   }
 });
 
