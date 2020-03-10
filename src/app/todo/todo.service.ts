@@ -9,6 +9,8 @@ let TODOS = [
   { title: 'Setup API', isDone: false },
 ];
 
+const API = '/api/todos';
+
 @Injectable({
   providedIn: 'root'
 })
@@ -16,22 +18,20 @@ export class TodoService {
   constructor(private http: HttpClient) { }
 
   get(query = '') {
-    return this.http.get('/api/todos');
+    return this.http.get(API);
   }
 
   add(data) {
-    return new Observable(subscriber => {
-      TODOS.push(data);
-      subscriber.next(data);
-    });
+    return this.http.post(API, data);
   }
 
   put(changed) {
-    return new Observable(subscriber => {
-      const index = TODOS.findIndex(todo => todo === changed);
-      TODOS[index].title = changed.title;
-      subscriber.next(changed);
-    });
+    return this.http.put(`${API}/${changed._id}`, changed);
+  }
+
+  toggle(selected) {
+    selected.isDone = !selected.isDone;
+    return this.put(selected);
   }
 
   delete(selected) {
@@ -47,10 +47,5 @@ export class TodoService {
       TODOS = TODOS.filter(todo => !todo.isDone);
       subscriber.next(TODOS);
     });
-  }
-
-  toggle(selected) {
-    selected.isDone = !selected.isDone;
-    return new Observable(subscriber => subscriber.complete());
   }
 }
