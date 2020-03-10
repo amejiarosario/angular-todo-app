@@ -38,10 +38,7 @@ export class TodoService {
     return this.http.delete(`${API}/${selected._id}`);
   }
 
-  deleteCompleted() {
-    return new Observable(subscriber => {
-      TODOS = TODOS.filter(todo => !todo.isDone);
-      subscriber.next(TODOS);
-    });
+  deleteCompleted(body = { isDone: true }) {
+    return this.http.request('delete', `${API}`, { body });
   }
 }

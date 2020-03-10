@@ -23,7 +23,7 @@ router.post('/', async (req, res) => {
   }
 });
 
-/* PUT /api/todos */
+/* PUT /api/todos/:id */
 router.put('/:id', async (req, res) => {
   try {
     const options = { new: true };
@@ -34,10 +34,21 @@ router.put('/:id', async (req, res) => {
   }
 });
 
-/* DELETE /api/todos */
+/* DELETE /api/todos/:id */
 router.delete('/:id', async (req, res) => {
   try {
     const todo = await Todo.findByIdAndDelete(req.params.id);
+    res.json(todo);
+  } catch (error) {
+    res.status(500).json({ error });
+  }
+});
+
+// Beaware: it can delete all data from db if body is empty
+/* DELETE /api/todos */
+router.delete('/', async (req, res) => {
+  try {
+    const todo = await Todo.deleteMany(req.body);
     res.json(todo);
   } catch (error) {
     res.status(500).json({ error });
