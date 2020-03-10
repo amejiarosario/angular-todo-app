@@ -6,7 +6,7 @@ const Todo = require('../schemas/todo');
 /* GET /api/todos */
 router.get('/', async (req, res) => {
   try {
-    const list = await Todo.find();
+    const list = await Todo.find(req.query);
     res.json(list);
   } catch (error) {
     res.status(500).json({ error });

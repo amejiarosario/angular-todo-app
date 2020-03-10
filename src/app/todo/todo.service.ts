@@ -17,8 +17,8 @@ const API = '/api/todos';
 export class TodoService {
   constructor(private http: HttpClient) { }
 
-  get(query = '') {
-    return this.http.get(API);
+  get(params = {}) {
+    return this.http.get(API, { params });
   }
 
   add(data) {
@@ -35,11 +35,7 @@ export class TodoService {
   }
 
   delete(selected) {
-    return new Observable(subscriber => {
-      const index = TODOS.findIndex(todo => todo === selected);
-      TODOS.splice(index, 1);
-      subscriber.next(true);
-    });
+    return this.http.delete(`${API}/${selected._id}`);
   }
 
   deleteCompleted() {

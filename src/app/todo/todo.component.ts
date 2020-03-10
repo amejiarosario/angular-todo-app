@@ -14,7 +14,11 @@ export class TodoComponent implements OnInit {
   public activeTasks;
   public newTodo;
   public path;
-
+  public mapToQuery = {
+    all: {},
+    active: { isDone: false },
+    completed: { isDone: true },
+  };
   constructor(private todoService: TodoService, private route: ActivatedRoute) { }
 
   ngOnInit() {
@@ -33,7 +37,8 @@ export class TodoComponent implements OnInit {
       });
   }
 
-  getTodos(query = ''){
+  getTodos(route = 'all'){
+    const query = this.mapToQuery[route];
     return this.todoService
       .get(query)
       .subscribe(todos => {
