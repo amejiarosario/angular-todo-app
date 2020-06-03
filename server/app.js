@@ -10,12 +10,20 @@ const indexRouter = require('./routes/index');
 const todosRouter = require('./routes/todos');
 
 // connect to db
-const DB_STRING = 'mongodb://localhost/todos';
+const user = process.env.MONGO_USER;
+const mongoPort = process.env.MONGO_PORT || 27017;
+const mongoHost = process.env.MONGO_HOST || 'localhost';
+const auth = user ? `${user}:${process.env.MONGO_PASS}@` : '';
+const DB_STRING = `mongodb://${auth}${mongoHost}:${mongoPort}/todos`;
+
+console.log(`Connecting to DB... ${DB_STRING}`);
+
 const config = { useNewUrlParser: true, useUnifiedTopology: true};
 mongoose.connect(DB_STRING, config)
-  .then(() => console.log(`Connected to ${DB_STRING}`))
+  .then(() => console.log(`Connected!`))
   .catch(console.error);
 
+// initialize app
 const app = express();
 
 // view engine setup
