@@ -1,9 +1,18 @@
-FROM node:12-alpine
-WORKDIR /app
+FROM node:lts-alpine
+
+WORKDIR /server
 COPY package.json package-lock.json ./
 RUN npm install --production
 COPY . .
-CMD ["npm", "start"]
+
+EXPOSE 3000
+
+## THE LIFE SAVER
+## Add the wait script to the image
+ADD https://github.com/ufoscout/docker-compose-wait/releases/download/2.7.3/wait /wait
+RUN chmod +x /wait
+
+CMD /wait && npm start
 
 # This App
 

@@ -16,6 +16,7 @@ const mongoHost = process.env.MONGO_HOST || 'localhost';
 const auth = user ? `${user}:${process.env.MONGO_PASS}@` : '';
 const DB_STRING = `mongodb://${auth}${mongoHost}:${mongoPort}/todos`;
 
+console.log(`Running node ${process.version}...`);
 console.log(`Connecting to DB... ${DB_STRING}`);
 
 const config = { useNewUrlParser: true, useUnifiedTopology: true};
