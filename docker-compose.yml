@@ -1,4 +1,4 @@
-#
+# docker-compose build # needed when Dockerfile changes (otherwise use cache)
 # docker-compose up
 # http://localhost:4200/all
 #
