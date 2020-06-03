@@ -1,5 +1,4 @@
-# docker-compose build # needed when Dockerfile changes (otherwise use cache)
-# docker-compose up
+# docker-compose up --build
 # http://localhost:4200/all
 #
 version: "3.7"
@@ -7,7 +6,7 @@ version: "3.7"
 services:
   app:
     image: node:lts-alpine
-    # --host 0.0.0.0 to listen to all the interfaces from the container
+    # --host 0.0.0.0 to listen to all the interfaces from the container (dev env)
     command: sh -c "npm install && npx ng serve --host 0.0.0.0 --disableHostCheck"
     ports:
       - 4200:4200
