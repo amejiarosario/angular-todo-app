@@ -1,4 +1,7 @@
 import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+
+const API = '/api/todos';
 
 let TODOS = [
   { title: 'Install Angular CLI', isDone: true },
@@ -12,21 +15,10 @@ let TODOS = [
 })
 export class TodoService {
 
-  constructor() { }
+  constructor(private http: HttpClient) { }
 
-  get(query = '') {
-    return new Promise(resolve => {
-      let data;
-
-      if (query === 'completed' || query === 'active'){
-        const isCompleted = query === 'completed';
-        data = TODOS.filter(todo => todo.isDone === isCompleted);
-      } else {
-        data = TODOS;
-      }
-
-      resolve(data);
-    });
+  get(params = {}) {
+    return this.http.get(API, { params });
   }
 
   add(data) {

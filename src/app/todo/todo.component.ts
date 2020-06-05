@@ -14,6 +14,11 @@ export class TodoComponent implements OnInit {
   public activeTasks;
   public newTodo;
   public path;
+  public mapToQuery = {
+    all: {},
+    active: { isDone: false },
+    completed: { isDone: true },
+  };
 
   constructor(private todoService: TodoService, private route: ActivatedRoute) { }
 
@@ -32,11 +37,14 @@ export class TodoComponent implements OnInit {
     });
   }
 
-  getTodos(query = ''){
-    return this.todoService.get(query).then(todos => {
-      this.todos = todos;
-      this.activeTasks = this.todos.filter(todo => !todo.isDone).length;
-    });
+  getTodos(route = 'all'){
+    const query = this.mapToQuery[route];
+    return this.todoService
+      .get(query)
+      .subscribe(todos => {
+        this.todos = todos;
+        this.activeTasks = this.todos.filter(todo => !todo.isDone).length;
+      });
   }
 
   updateTodo(todo, newValue) {
