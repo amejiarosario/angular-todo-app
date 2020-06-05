@@ -2,10 +2,10 @@ const express = require('express');
 const router = express.Router();
 
 const TODOS = [
-  { title: 'Install Angular CLI', isDone: true },
-  { title: 'Style app', isDone: true },
-  { title: 'Finish service functionality', isDone: false },
-  { title: 'Setup API', isDone: false },
+  { title: 'Create API to get this list', isDone: true },
+  { title: 'Connect API with Angular', isDone: true },
+  { title: 'Connect server with mongo', isDone: false },
+  { title: 'Publish app', isDone: false },
 ];
 
 /* GET /api/todos */
