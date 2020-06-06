@@ -23,7 +23,7 @@ services:
       - ./server:/server
     # port 3000 has to match src/proxy.conf.json
     ports:
-      - 7171:3000
+      - 3000:3000
     depends_on:
       - mongo
     environment:
