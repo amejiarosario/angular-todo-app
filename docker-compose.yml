@@ -1,0 +1,36 @@
+# docker-compose up --build
+# http://localhost:4200/all
+#
+version: "3.7"
+
+services:
+  app:
+    image: node:lts-alpine
+    working_dir: /app
+    volumes:
+      - ./:/app
+    ports:
+      - 4200:4200
+    # --host 0.0.0.0 to listen to all the interfaces from the container (dev env)
+    command: >
+      sh -c "npm install &&
+             npx ng serve --host 0.0.0.0"
+
+  server:
+    image: node:lts-alpine
+    working_dir: /server
+    volumes:
+      - ./server:/server
+    # port 3000 has to match src/proxy.conf.json
+    ports:
+      - 7171:3000
+    depends_on:
+      - mongo
+    environment:
+      MONGO_HOST: mongo
+      WAIT_HOSTS: mongo:27017
+    command: >
+      sh -c "npm i -g nodemon && npm install && nodemon ./bin/www"
+
+  mongo:
+    image: mongo
