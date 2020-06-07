@@ -25,7 +25,7 @@
         <input class="edit"
                #updatedTodo
                [value]="todo.title"
-               (blur)="updateTodo(todo, updatedTodo.value)"
+               (blur)="todo.editing = false; updateTodo(todo, updatedTodo.value)"
                (keyup.escape)="todo.editing = false"
                (keyup.enter)="updateTodo(todo, updatedTodo.value)">
       </li>
